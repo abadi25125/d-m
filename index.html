@@ -245,45 +245,80 @@
   bottom: -100px;
   left: 50%;
   transform: translateX(-50%);
-  background: linear-gradient(135deg, #101010cc, #181818ee);
-  border-radius: 24px;
-  border: 1.5px solid rgba(255, 255, 255, 0.1);
-  padding: 24px 32px;
-  font-size: 16px;
-  line-height: 1.6;
-  text-align: left;
-  min-width: 340px;
-  max-width: 460px;
-  color: #ccc;
+  width: 460px;
+  max-width: 90vw;
+  background: rgba(20, 20, 20, 0.95);
+  border-radius: 10px;
+  border: 2px solid #3a3a3a;
   box-shadow:
-    0 0 20px 5px rgba(120, 120, 120, 0.3),
-    inset 0 0 15px 3px rgba(120, 120, 120, 0.4);
+    0 8px 24px rgba(0,0,0,0.8),
+    inset 0 0 15px rgba(80, 80, 80, 0.6);
+  padding: 20px 28px;
+  font-family: 'Courier New', monospace;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #cfcfcf;
+  letter-spacing: 0.04em;
   z-index: 1100;
-  overflow: hidden;
-  backdrop-filter: blur(6px);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  letter-spacing: 0.03em;
+  overflow-y: auto;
+  max-height: 280px;
 }
 
+/* شريط العنوان */
+.console-box-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #444;
+  margin-bottom: 12px;
+  user-select: none;
+}
+
+/* أزرار التحكم (الإغلاق، التصغير، التكبير) */
+.console-box-header div {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  margin-right: 8px;
+  background-color: #ff5f56; /* زر إغلاق */
+  box-shadow:
+    18px 0 0 #ffbd2e,  /* زر تصغير */
+    36px 0 0 #27c93f;  /* زر تكبير */
+}
+
+/* إلغاء التدرج المتحرك */
 .console-box::before {
-  content: none;  /* حذف التدرج المتحرك */
+  content: none;
 }
 
+/* ألوان النص */
 .console-box div span.gray {
   color: #999;
   font-weight: 600;
 }
 
 .console-box div span.green {
-  color: #96f300;
+  color: #7CFC00;
   font-weight: 700;
-  text-shadow: 0 0 4px #bbb;
+  text-shadow: 0 0 5px #aaffaa;
 }
 
 .console-box div strong {
-  color: #bbb;
-  text-shadow: 0 0 5px #bbb;
+  color: #ddd;
+  text-shadow: 0 0 5px #ddd;
 }
+
+/* مؤشر الكتابة الوميض */
+.blink {
+  animation: blinkCaret 1s steps(2, start) infinite;
+}
+
+@keyframes blinkCaret {
+  0%, 49% {opacity: 1;}
+  50%, 100% {opacity: 0;}
+}
+
 
 
 /* حركة الـ scan */
@@ -352,17 +387,22 @@
     <img src="https://media.discordapp.net/attachments/1362491547857453087/1394856307084890293/black-anime-pfp-of-angry-girl-7hyn1yac5ogjw9e4.jpg?ex=687854aa&is=6877032a&hm=0ffc7eb220d86aae565b5a8eeea7c0b6433cca4c0419a8e64c6d6219d3c79819&=&format=webp&width=1536&height=864" alt="Anime Image" style="
       position: absolute;
       top: 70px;
-      right: 500px;
+      right: 675px;
       width: 500px;
       border: 3px solid #333;
     ">
   </a>
 </main>
 
-<audio autoplay loop>
-  <source src="https://cdn.discordapp.com/attachments/1359817614582480960/1395055302331863152/andales.mp3" type="audio/mpeg" />
-  متصفحك لا يدعم تشغيل الصوت.
-</audio>
+<script>
+  window.addEventListener('load', () => {
+    const audio = new Audio("https://cdn.discordapp.com/attachments/1359817614582480960/1395055302331863152/andales.mp3");
+    audio.loop = true;
+    audio.play().catch(e => {
+      console.warn("تشغيل الصوت تم منعه بواسطة المتصفح حتى يتفاعل المستخدم:", e);
+    });
+  });
+</script>
 
 
 <div class="title-wrapper" style="
@@ -413,18 +453,14 @@
 
 
 
-      <div class="console-box">
-        <div><span class="gray">●●●</span> discord.gg/ArthurNetwork</div>
-        <div><span class="gray">Server@system:~$</span> <strong>why?<span class="blink">_</span></strong></div>
-        <div><span class="green">Arthur :</span> السلام عليكم ورحمة الله وبركاته 
-تبون نقفل ثغراتكم ؟
-
-اختصار دسكوردي فوق على اليسار
-
-افتح تكت وبنساعدك 
-
-
-(:
+<div class="console-box">
+  <div class="console-box-header">
+    <div></div>
+  </div>
+  <div><span class="gray">●●●</span> discord.gg/ArthurNetwork</div>
+  <div><span class="gray">Server@system:~$</span> <strong>why?<span class="blink">_</span></strong></div>
+  <div><span class="green">Arthur :</span> السلام عليكم ورحمة الله وبركاته<br>تبون نقفل ثغراتكم ؟<br>اختصار دسكوردي فوق على اليسار<br>افتح تكت وبنساعدك (: </div>
+</div>
 </div>
       </div>
 
