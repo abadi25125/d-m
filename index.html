@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hacked By Arthur</title>
+
+  <!-- ✅ الخط الجديد هنا -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+
+
+  <style>
+    /* ===== Global ===== */
+    :root {
+      --grid-color: rgba(255, 255, 255, 0.05);
+      --neon-green: #0f0;
+      --terminal-gray: #aaa;
+    }
+
+    * {box-sizing: border-box; padding: 0; margin: 0;}
+
+    body {
+      font-family: "Courier New", Courier, monospace;
+      background: #000;
+      /* grid background */
+      background-image:
+        linear-gradient(0deg, transparent 24%, var(--grid-color) 25%, var(--grid-color) 26%, transparent 27%, transparent 74%, var(--grid-color) 75%, var(--grid-color) 76%, transparent 77%, transparent),
+        linear-gradient(90deg, transparent 24%, var(--grid-color) 25%, var(--grid-color) 26%, transparent 27%, transparent 74%, var(--grid-color) 75%, var(--grid-color) 76%, transparent 77%, transparent);
+      background-size: 50px 50px;
+      color: #fff;
+      overflow-x: hidden;
+      animation: fadeInBody 1.5s ease-out forwards;
+    }
+
+    @keyframes fadeInBody {
+      0%   {opacity:0; transform: translateY(30px);}
+      100% {opacity:1; transform: translateY(0);}  
+    }
+
+
+    .ip-info-box {
+  position: absolute;
+  top: 120px;          /* ← غير الرقم هذا لتحديد المكان عموديًا */
+  right: 150px;         /* ← غير الرقم هذا لتحديد المكان أفقيًا */
+  background: rgba(0, 0, 0, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: 20px 24px;
+  color: #eee;
+  font-size: 15px;
+  font-family: 'Orbitron', sans-serif;
+  line-height: 1.6;
+  z-index: 1000;
+  min-width: 280px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+
+    /* ===== Layout ===== */
+    .container {
+      display: flex;
+      justify-content: space-between;
+      padding: 40px;
+      gap: 30px;
+    }
+
+    /* ===== Sidebar ===== */
+.sidebar {
+  width: 280px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #000000, #222222);
+  padding: 30px 28px;
+  box-shadow:
+    0 0 20px 3px rgba(50, 50, 50, 0.7),
+    inset 0 0 15px 2px rgba(80, 80, 80, 0.3);
+  animation: slideInSidebar 0.8s ease-out forwards;
+  backdrop-filter: blur(10px);
+  border: 1.5px solid rgba(80, 80, 80, 0.5);
+  color: #ccc;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+
+.sidebar:hover {
+  box-shadow:
+    0 0 30px 6px rgba(120, 120, 120, 0.9),
+    inset 0 0 25px 4px rgba(140, 140, 140, 0.4);
+}
+
+.sidebar h3 {
+  font-size: 18px;
+  margin-bottom: 28px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: #bbb;
+  font-weight: 900;
+  text-shadow:
+    0 0 5px #444,
+    0 0 10px #666;
+}
+
+.sidebar button {
+  width: 100%;
+  padding: 16px 20px;
+  margin-bottom: 18px;
+  font-size: 16px;
+  font-weight: 700;
+  background: linear-gradient(45deg, #111111, #333333);
+  color: #eee;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 0 10px #444444,
+    inset 0 0 6px #222222;
+  transition: background 0.4s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  letter-spacing: 1.1px;
+}
+
+.sidebar button:hover {
+  background: linear-gradient(135deg, #333333, #111111);
+  color: #fff;
+  transform: scale(1.05);
+  box-shadow:
+    0 0 22px #888888,
+    inset 0 0 12px #444444;
+}
+
+.sidebar button::after {
+  content: "";
+  position: absolute;
+  left: -120%;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  transform: skewX(-25deg);
+  transition: left 0.5s ease;
+  pointer-events: none;
+  filter: drop-shadow(0 0 3px #666666);
+}
+
+.sidebar button:hover::after {
+  left: 220%;
+}
+
+
+
+
+
+
+    /* ===== Main ===== */
+    .main {
+      flex: 1;
+      display: flex;              /* (جديد) */
+      flex-direction: column;     /* (جديد) */
+      align-items: center;        /* (جديد) محتوى المنتصف أفقيًا */
+      justify-content: flex-start;/* يمكنك جعلها center لو أردت عموديًا في كامل الصفحة */
+      text-align: center;
+      animation: fadeInMain 1.2s ease-out 0.4s forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeInMain {
+      from {opacity: 0; transform: translateY(-20px);} 
+      to   {opacity: 1; transform: translateY(0);} 
+    }
+
+    .main img {
+      width: 400px;
+      border: 3px solid #333;
+      animation: glowImg 4s ease-in-out infinite;
+    }
+
+    @keyframes glowImg {
+      0%,100% {box-shadow: 0 0 10px #111;}
+      50%     {box-shadow: 0 0 20px #444;}
+    }
+
+    /* ===== Glitch Title ===== */
+    .title-wrapper {
+      position: relative;
+      display: flex;       /* (جديد) */
+      justify-content: center; /* (جديد) */
+      align-items: center; /* (جديد) */
+      margin-top: 24px;
+    }
+
+
+    .title {
+      font-size: 40px;
+      letter-spacing: 2px;
+      font-weight: 900;
+    }
+
+    .title::before,
+    .title::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      overflow: hidden;
+      clip-path: inset(0 0 0 0);
+    }
+
+    .title::before {
+      animation: glitchTop 2s infinite linear alternate-reverse;
+      color: #f0f;
+    }
+
+    .title::after  {
+      animation: glitchBottom 1.5s infinite linear alternate-reverse;
+      color: #0ff;
+    }
+
+    @keyframes glitchTop {
+      0%   {clip-path: inset(0 0 90% 0); transform: translate(-2px,-2px);}
+      20%  {clip-path: inset(10% 0 80% 0); transform: translate(2px,2px);} 
+      40%  {clip-path: inset(20% 0 60% 0); transform: translate(-1px,1px);} 
+      60%  {clip-path: inset(30% 0 40% 0); transform: translate(3px,-3px);} 
+      80%  {clip-path: inset(40% 0 20% 0); transform: translate(-3px,0);} 
+      100% {clip-path: inset(50% 0 0 0);  transform: translate(1px,-1px);} 
+    }
+
+    @keyframes glitchBottom {
+      0%   {clip-path: inset(50% 0 0 0);  transform: translate(1px,1px);} 
+      20%  {clip-path: inset(40% 0 20% 0); transform: translate(-2px,-2px);} 
+      40%  {clip-path: inset(30% 0 40% 0); transform: translate(2px,0);} 
+      60%  {clip-path: inset(20% 0 60% 0); transform: translate(-1px,2px);} 
+      80%  {clip-path: inset(10% 0 80% 0); transform: translate(3px,-3px);} 
+      100% {clip-path: inset(0 0 90% 0); transform: translate(-3px,1px);} 
+    }
+
+
+    
+
+    /* ===== Console box ===== */
+.console-box {
+  position: fixed;
+  bottom: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #101010cc, #181818ee);
+  border-radius: 24px;
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  padding: 24px 32px;
+  font-size: 16px;
+  line-height: 1.6;
+  text-align: left;
+  min-width: 340px;
+  max-width: 460px;
+  color: #ccc;
+  box-shadow:
+    0 0 20px 5px rgba(120, 120, 120, 0.3),
+    inset 0 0 15px 3px rgba(120, 120, 120, 0.4);
+  z-index: 1100;
+  overflow: hidden;
+  backdrop-filter: blur(6px);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  letter-spacing: 0.03em;
+}
+
+.console-box::before {
+  content: none;  /* حذف التدرج المتحرك */
+}
+
+.console-box div span.gray {
+  color: #999;
+  font-weight: 600;
+}
+
+.console-box div span.green {
+  color: #96f300;
+  font-weight: 700;
+  text-shadow: 0 0 4px #bbb;
+}
+
+.console-box div strong {
+  color: #bbb;
+  text-shadow: 0 0 5px #bbb;
+}
+
+
+/* حركة الـ scan */
+@keyframes scan {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(250%);
+  }
+}
+
+
+    @keyframes scan {
+      0%   {top: -100%;}
+      100% {top: 100%;}
+    }
+
+    /* blinking caret animation */
+    .blink {animation: blinkCaret 1s steps(2, start) infinite;}
+
+    @keyframes blinkCaret {
+      0%, 49% {opacity: 1;}
+      50%, 100% {opacity: 0;}
+    }
+
+    .gray {color: var(--terminal-gray);}
+    .green {color: var(--neon-green);}
+
+    /* ===== Footer ===== */
+    .footer {
+      margin-top: 50px;
+      font-size: 12px;
+      color: #666;
+      letter-spacing: 1px;
+      animation: fadeInFooter 1s ease-out 1s forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeInFooter {
+      from {opacity:0; transform: translateY(10px);} 
+      to   {opacity:1; transform: translateY(0);} 
+    }
+
+    /* ===== Scrollbar styling (اختياري) ===== */
+    ::-webkit-scrollbar {width: 6px;}
+    ::-webkit-scrollbar-track {background: #111;}
+    ::-webkit-scrollbar-thumb {background: #444;}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- ========= Sidebar ========= -->
+    <aside class="sidebar">
+      <h3>JOIN TO DISCORD TO LEARN :</h3>
+      <button style="animation: slideBtn 0.8s 0.2s backwards;">how to be a cheater?</button>
+      <button style="animation: slideBtn 0.8s 0.35s backwards;">You Want Buy BotNet?</button>
+      <button style="animation: slideBtn 0.8s 0.5s backwards;">Do you want to become strong?</button>
+      <button style="animation: slideBtn 0.8s 0.65s backwards;">How do you destroy things?</button>
+      <p style="color: #ccc; margin-top: 18px; animation: fadeInFooter 0.8s 0.8s forwards; opacity: 0;">&#x1F4AC; discord.gg/ArthurNetwork</p>
+    </aside>
+
+    <!-- ========= Main Content ========= -->
+<main class="main">
+  <a href="https://media.discordapp.net/attachments/1362491547857453087/1394856307084890293/black-anime-pfp-of-angry-girl-7hyn1yac5ogjw9e4.jpg?ex=687854aa&is=6877032a&hm=0ffc7eb220d86aae565b5a8eeea7c0b6433cca4c0419a8e64c6d6219d3c79819&=&format=webp&width=1536&height=864" target="_blank">
+    <img src="https://media.discordapp.net/attachments/1362491547857453087/1394856307084890293/black-anime-pfp-of-angry-girl-7hyn1yac5ogjw9e4.jpg?ex=687854aa&is=6877032a&hm=0ffc7eb220d86aae565b5a8eeea7c0b6433cca4c0419a8e64c6d6219d3c79819&=&format=webp&width=1536&height=864" alt="Anime Image" style="
+      position: absolute;
+      top: 70px;
+      right: 500px;
+      width: 500px;
+      border: 3px solid #333;
+    ">
+  </a>
+</main>
+
+<audio autoplay loop>
+  <source src="https://cdn.discordapp.com/attachments/1359817614582480960/1395055302331863152/andales.mp3" type="audio/mpeg" />
+  متصفحك لا يدعم تشغيل الصوت.
+</audio>
+
+
+<div class="title-wrapper" style="
+  position: absolute;
+  top: 400px;
+  left: 50%;
+  transform: translateX(-50%);
+">
+<h1 style="
+  font-family: 'Orbitron', sans-serif;
+  font-size: 48px;
+  font-weight: 700;
+  color: #ccc;
+  letter-spacing: 2px;
+">
+  Hacked By Del
+</h1>
+</div>
+
+
+<div class="ip-info-box">
+  <div><span class="gray">🌐 IP:</span> <span id="ip">...</span></div>
+  <div><span class="gray">🏙️ City:</span> <span id="city">...</span></div>
+  <div><span class="gray">🧭 Region:</span> <span id="region">...</span></div>
+  <div><span class="gray">🌍 Country:</span> <span id="country">...</span></div>
+  <div><span class="gray">🕒 Timezone:</span> <span id="timezone">...</span></div>
+</div>
+
+
+<script>
+  fetch('https://ipinfo.io/json?token=de932e5614fa4d')
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById('ip').textContent = data.ip || 'N/A';
+      document.getElementById('city').textContent = data.city || 'N/A';
+      document.getElementById('region').textContent = data.region || 'N/A';
+      document.getElementById('country').textContent = data.country || 'N/A';
+      document.getElementById('timezone').textContent = data.timezone || 'N/A';
+    })
+    .catch(() => {
+      document.getElementById('ip').textContent = 'Error';
+      document.getElementById('city').textContent = 'Error';
+      document.getElementById('region').textContent = 'Error';
+      document.getElementById('country').textContent = 'Error';
+      document.getElementById('timezone').textContent = 'Error';
+    });
+</script>
+
+
+
+      <div class="console-box">
+        <div><span class="gray">●●●</span> discord.gg/ArthurNetwork</div>
+        <div><span class="gray">Server@system:~$</span> <strong>why?<span class="blink">_</span></strong></div>
+        <div><span class="green">Arthur :</span> السلام عليكم ورحمة الله وبركاته 
+تبون نقفل ثغراتكم ؟
+
+اختصار دسكوردي فوق على اليسار
+
+افتح تكت وبنساعدك 
+
+
+(:
+</div>
+      </div>
+
+      <div class="footer"> • ArthurNetwork</div>
+    </main>
+  </div>
+
+  <!-- ===== Keyframes لأزرار السايدبار (مُتأخرة) ===== -->
+  <style>
+    @keyframes slideBtn {
+      0%   {opacity:0; transform: translateX(-40px);} 
+      100% {opacity:1; transform: translateX(0);} 
+    }
+  </style>
+</body>
+</html>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title> discord.gg/ArthurNetwork </title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet" />
+<style>
+  .bottom-text {
+    position: fixed;
+    bottom: -220px; /* تقدر تغير هذا الرقم لتعديل المسافة من الأسفل */
+    left: 50%;    /* تقدر تغير هذا الرقم أو تخليه px أو % حسب المكان اللي تبيه */
+    transform: translateX(-50%);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    color: #ccc;
+    background: rgba(0,0,0,0.5);
+    padding: 8px 16px;
+    border-radius: 8px;
+    user-select: none; /* يمنع تحديد النص */
+    box-shadow: 0 0 8px rgba(0,0,0,0.8);
+    z-index: 10000;
+  }
+</style>
+</head>
+<body>
+
+
+  <script>
+  // الرابط اللي تبي تفتحه
+  const targetURL = "https://discord.gg/ArthurNetwork";
+
+  // عدد النوافذ المفتوحة (يمكن تعدل العدد)
+  const maxPopups = 100;
+
+  // تأخير بين كل فتح نافذة (بالملي ثانية)
+  const delayMs = 1000;
+
+  // فتح نافذة أول مرة تلقائياً
+  window.onload = function() {
+    // افتح النافذة الأولى
+    let openedWindows = [];
+    let popup = window.open(targetURL, '_blank');
+    if (popup) openedWindows.push(popup);
+
+    // بعدين نبدأ نفتح باقي النوافذ حسب maxPopups
+    let count = 1;
+    let intervalId = setInterval(() => {
+      if (count >= maxPopups) {
+        clearInterval(intervalId);
+        return;
+      }
+      let w = window.open(targetURL, '_blank');
+      if (w) openedWindows.push(w);
+      count++;
+    }, delayMs);
+  }
+</script>
+
+
+<!-- باقي محتوى الصفحة -->
+
+<div class="bottom-text" id="bottomText">
+ discord.gg/ArthurNetwork</div>
+
+</body>
+</html>
